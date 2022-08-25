@@ -1,0 +1,39 @@
+Table Document {
+  id int [pk]
+  // 所属してるディレクトリID
+  directory_id int [ref: > Directory.id]
+  title text
+  content text
+  //作成日
+  created_at timestamp
+  // 更新日
+  updated_at timestamp
+  // 作成ユーザ
+  crated_by int [ref: > User.id]
+}
+
+Table Directory {
+  id int [pk]
+  // 親ディレクトリID
+  parent_id int [ref: > Directory.id]
+  name text
+}
+
+Table User {
+  id int[pk]
+}
+
+// 編集履歴テーブル
+Table Document_Edit_History {
+  id int[pk]
+  // 編集ユーザID
+  edit_user_id int [ref: > User.id]
+  // 編集した時間
+  time timestamp
+  // 編集対象ドキュメントID
+  edit_document_id id [ref: > Document.id]
+  // 修正前ドキュメント
+  before_editing_content text
+  // 修正後テキスト
+  after_editing_content text
+}
